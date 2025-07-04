@@ -1,0 +1,245 @@
+body {
+  background-color: #f0e6f6; /* Soft lavender */
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.envelope-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#envelope {
+  --env-width: 280px; /* fallback */
+  position: relative;
+  width: 80vw;
+  max-width: 320px;
+  aspect-ratio: 14 / 9;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #d9534f;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  top: 5vh;
+  width: 80vw;
+  max-width: 320px;
+}
+
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: calc(var(--env-width) / 2) solid transparent;
+  border-right: calc(var(--env-width) / 2) solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid #d9534f;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform-origin: top;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pocket {
+  border-left: calc(var(--env-width) / 2) solid #f5a3a2;
+  border-right: calc(var(--env-width) / 2) solid #f5a3a2;
+  border-bottom: 90px solid #ff6f61;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+}
+
+.letter {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  margin: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  font-family: "Dancing Script", cursive;
+  font-size: 1rem;
+}
+
+.letter:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  background-color: #ffe6e6;
+}
+
+.words.line1 {
+  top: 10%;
+  height: 7%;
+  font-size: 0.8rem;
+}
+
+.words.line2,
+.words.line3,
+.words.line4 {
+  font-size: 1rem;
+  height: 10%;
+  text-align: center;
+}
+
+.words.line2 { top: 30%; }
+.words.line3 { top: 50%; }
+.words.line4 { top: 70%; }
+
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 0.4s ease, z-index 0.6s;
+  z-index: 1;
+}
+
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform 0.4s 0.6s ease, z-index 1s;
+  z-index: 5;
+}
+
+.close .letter {
+  transform: translateY(0);
+  transition: transform 0.4s ease, z-index 1s;
+  z-index: 1;
+}
+
+.open .letter {
+  transform: translateY(-30%);
+  transition: transform 0.4s 0.6s ease, z-index 0.6s;
+  z-index: 2;
+}
+
+.hearts {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  pointer-events: none;
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  width: 30px;
+  height: 48px;
+  background: #e60073;
+  border-radius: 30px 30px 0 0;
+  transform-origin: 0 100%;
+}
+
+.heart:before {
+  left: 15px;
+  transform: rotate(-45deg);
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.close .heart {
+  opacity: 0;
+  animation: none;
+}
+
+.a1, .a2, .a3 {
+  opacity: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.a1 {
+  left: 20%;
+  transform: scale(0.6);
+  animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+}
+
+.a2 {
+  left: 55%;
+  transform: scale(1);
+  animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+}
+
+.a3 {
+  left: 10%;
+  transform: scale(0.8);
+  animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+}
+
+@keyframes slideUp {
+  0% { top: 0; }
+  100% { top: -600px; }
+}
+
+@keyframes sideSway {
+  0% { margin-left: 0; }
+  100% { margin-left: 50px; }
+}
+
+.reset {
+  text-align: center;
+  margin-top: 60px; /* increased spacing below envelope */
+}
+
+.reset button {
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid #d9534f;
+  border-radius: 4px;
+  color: #d9534f;
+  font-size: 1rem;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.reset button:hover {
+  background-color: #d9534f;
+  color: white;
+}
+
+/* Optional: Media Query for small screens */
+@media (max-width: 480px) {
+  .letter { font-size: 0.85rem; }
+  .words.line1 { font-size: 0.6rem; }
+  .words.line2,
+  .words.line3,
+  .words.line4 { font-size: 0.9rem; }
+}
